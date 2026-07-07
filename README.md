@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# pdf-lib-table tester
 
-## Getting Started
+**Live site → [pdf-lib-table.com](https://www.pdf-lib-table.com/)**
 
-First, run the development server:
+An interactive playground for [pdf-lib-table](https://github.com/nashtheflash/pdf-lib-table), a table add-on for [pdf-lib](https://pdf-lib.js.org/). Tweak any table setting in the browser and watch the PDF re-render live — no install required.
+
+## What you can do
+
+- **Live preview** — every option in pdf-lib-table (positioning, dividers, borders, headers, rows, cells, subheadings) is exposed as a form field, and the rendered PDF updates as you type
+- **Examples** — start from single-page, multi-page, and subheading tables with realistic data
+- **Copy your config** — one click copies a ready-to-paste `createPDFTables` configuration matching exactly what you see
+- **Documentation** — the full options reference, mirrored from the package README
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Developing against a local pdf-lib-table
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The site consumes the published npm package. To hack on the package and see changes live, link it with [yalc](https://github.com/wclr/yalc):
 
-## Learn More
+```bash
+# in your pdf-lib-table checkout - watches and pushes on save
+npm run dev
 
-To learn more about Next.js, take a look at the following resources:
+# in this repo, in a second terminal
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Pushed changes hot-reload (the Next config un-manages `node_modules` in dev for this reason). Before deploying, restore the npm dependency:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+yalc remove pdf-lib-table && npm install
+```
 
-## Deploy on Vercel
+## Built with
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Next.js](https://nextjs.org/) · [Tailwind CSS](https://tailwindcss.com/) + [daisyUI](https://daisyui.com/) · [pdf-lib](https://pdf-lib.js.org/) · [MDX](https://mdxjs.com/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+If pdf-lib-table saves you some time, you can [buy me a coffee](https://www.buymeacoffee.com/nashbrowns) ☕

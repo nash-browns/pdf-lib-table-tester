@@ -12,49 +12,48 @@ const MARGIN = PAGE_WIDTH / 12;
 const baseDefaults = () => ({
     Table: {
         tableType: 'vertical',
-        startingX: MARGIN,
-        startingY: PAGE_HEIGHT - 50,
-        maxTableWidth: PAGE_WIDTH - MARGIN * 2,
+        tableStartingX: MARGIN,
+        tableStartingY: 50, //measured down from the top of the page (0 = top edge)
+        tableMaxWidth: PAGE_WIDTH - MARGIN * 2,
         tableBorder: true,
         tableBorderThickness: 1,
         tableBorderColor: rgb(.56, .56, .56),
-        dividedX: true,
-        dividedY: true,
-        dividedXColor: undefined,
-        dividedYColor: undefined,
-        dividedXThickness: 1,
-        dividedYThickness: 1,
+        tableDividedX: true,
+        tableDividedY: true,
+        tableDividerXColor: undefined,
+        tableDividerYColor: undefined,
+        tableDividerXThickness: 1,
+        tableDividerYThickness: 1,
         continuationFont: 'TimesRoman',
-        continuationTextX: undefined,
+        continuationTextX: 315,
         continuationTextY: 10,
         continuationFontSize: 15,
         continuationFillerHeight: 20,
         continuationText: 'Continues on Next Page',
-        appendedPageStartX: MARGIN,
-        appendedPageStartY: PAGE_HEIGHT - 50,
-        appendedMaxTableWidth: PAGE_WIDTH - MARGIN * 2,
+        appendedTableStartingX: MARGIN,
+        appendedTableStartingY: 50,
+        appendedTableMaxWidth: PAGE_WIDTH - MARGIN * 2,
     },
     Header: {
-        headerHeight: undefined,
+        headerHeight: 13,
         headerBackgroundColor: rgb(.03, .03, .03),
         headerFont: 'TimesRomanBold',
         headerTextSize: 10,
-        headerLineHeight: 12,
         headerTextAlignment: 'center',
         headerTextJustification: 'top',
         headerTextColor: undefined,
         headerDividedY: true,
-        headerDividedYColor: rgb(.03, .03, .03),
-        headerDividedYThickness: 0,
+        headerDividerYColor: rgb(.03, .03, .03),
+        headerDividerYThickness: 1,
         headerDividedX: true,
-        headerDividedXColor: undefined,
-        headerDividedXThickness: 1,
+        headerDividerXColor: undefined,
+        headerDividerXThickness: 1,
         headerWrapText: true,
     },
     Row: {
         rowBackgroundColor: rgb(1, 1, 1),
-        alternateRowColor: true,
-        alternateRowColorValue: rgb(.21, .24, .85),
+        rowAlternateColor: true,
+        rowAlternateColorValue: rgb(.21, .24, .85),
     },
     Cell: {
         cellFont: 'TimesRoman',
@@ -74,11 +73,11 @@ const baseDefaults = () => ({
         subHeadingTextSize: 10,
         subHeadingLineHeight: 12,
         subHeadingDividedX: true,
-        subHeadingDividedXThickness: 1,
-        subHeadingDividedXColor: rgb(0, 0, 0),
+        subHeadingDividerXThickness: 1,
+        subHeadingDividerXColor: rgb(0, 0, 0),
         subHeadingDividedY: true,
-        subHeadingDividedYThickness: 1,
-        subHeadingDividedYColor: rgb(0, 0, 0),
+        subHeadingDividerYThickness: 1,
+        subHeadingDividerYColor: rgb(0, 0, 0),
         subHeadingWrapText: true,
     },
 });
@@ -87,8 +86,8 @@ export const singlePageDefaults = () => baseDefaults();
 
 export const multiPageDefaults = () => {
     const defaults = baseDefaults();
-    defaults.Table.startingY = PAGE_HEIGHT - 20;
-    defaults.Table.appendedPageStartY = PAGE_HEIGHT - 20;
+    defaults.Table.tableStartingY = 20;
+    defaults.Table.appendedTableStartingY = 20;
     defaults.Table.continuationFillerHeight = 35;
     return defaults;
 };

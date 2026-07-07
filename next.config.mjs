@@ -1,16 +1,18 @@
 import createMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
 
 const withMDX = createMDX({
-  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [remarkGfm], // GitHub-flavored markdown - the docs use tables
+    rehypePlugins: [rehypeSlug], // heading ids so the doc nav can anchor-link
+  },
 })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // Configure pageExtensions to include md and mdx
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-    env: {
-        STRIPE_KEY: process.env.STRIPE_KEY, // pulls from .env file
-    },
     webpack: (config, { dev }) => {
         if (dev) {
             // pdf-lib-table is yalc-pushed into node_modules during local dev;

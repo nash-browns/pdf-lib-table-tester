@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from "react";
-import { FormFieldsLayout, CopyCode, TableIframe } from ".";
+import { FormFieldsLayout, CopyCode, TableIframe, BuyMeACoffee } from ".";
 
 import { Doc, SinglePage, MultiPage, Subheading } from "../function";
 
@@ -13,7 +13,6 @@ const EXAMPLE_TYPES = {
 
 export function ExampleLayout({ }) {
     const [exampleName, setExampleName] = useState('Single Page');
-    const [isStandard, setIsStandard] = useState(false);
     const [userPdfSettings, setUserPdfSettings] = useState(() => new SinglePage().defaultSettings);
     const [pdfUrl, setPdfUrl] = useState();
     const [drawError, setDrawError] = useState(null);
@@ -52,12 +51,10 @@ export function ExampleLayout({ }) {
 
     return (
         <div className='bg-base-100'>
-            <div className='grid grid-cols-4 h-[calc(100vh-64px)] justify-center'>
+            <div className='grid grid-cols-4 h-[calc(100vh-64px-45px)] justify-center'>
                 <div className='col-span-1 h-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-primary scrollbar-track-slate-300 scrollbar-w-2 overflow-y-auto overflow-x-hidden'>
                     <div className='sticky top-0 px-2 pt-5'>
                         <CopyCode
-                            isStandard={isStandard}
-                            setIsStandard={setIsStandard}
                             userPdfSettings={userPdfSettings}
                         />
                         <FormFieldsLayout
@@ -68,17 +65,22 @@ export function ExampleLayout({ }) {
                         />
                     </div>
                 </div>
-                <div className='col-span-3 h-full overflow-y-hidden'>
-                    <div className="w-full px-2 py-3 h-[calc(100vh-64px)]">
-                        {
-                            drawError &&
-                                <div className="alert alert-warning py-1 mb-2 text-sm">
-                                    <span>These settings can&apos;t render: {drawError}</span>
-                                </div>
-                        }
-                        {
-                            !pdfUrl ? <div className="skeleton w-full h-full"></div> : <TableIframe url={pdfUrl}/>
-                        }
+                <div className="col-span-3">
+                    <div className='flex flex-col h-full overflow-y-hidden'>
+                        <div className="w-full pt-2 pb-0 px-2 h-[calc(100vh-64px-45px)]">
+                            {
+                                drawError &&
+                                    <div className="alert alert-warning py-1 mb-2 text-sm">
+                                        <span>These settings can&apos;t render: {drawError}</span>
+                                    </div>
+                            }
+                            {
+                                !pdfUrl ? <div className="skeleton w-full h-full"></div> : <TableIframe url={pdfUrl}/>
+                            }
+                        </div>
+                        <div className="flex justify-center py-2 h-[45px]">
+                            <BuyMeACoffee />
+                        </div>
                     </div>
                 </div>
             </div>

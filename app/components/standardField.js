@@ -1,5 +1,3 @@
-import { CheckIcon, ChevronUpDownIcon, SparklesIcon} from '@heroicons/react/20/solid'
-import { getPaidFeatures } from '../lib/paidFeatures';
 
 export function StandardField({field, fieldDef, userPdfSettings, setUserPdfSettings, section}) {
 
@@ -46,27 +44,12 @@ const handleFieldChange = (value, field, setUserPdfSettings, section, userPdfSet
 }
 
 function FieldName({ field }) {
-  
-  const paidFeatures = getPaidFeatures();
-
   return (
-    <>
-      {
-        paidFeatures.includes(field) ?
-             <label
-                htmlFor="name"
-                className="absolute select-none -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary"
-            >
-                {field} <SparklesIcon className={`absolute -top-1 -right-1 text-yellow-400 w-3 h-3`}/>
-            </label>
-          : 
-             <label
-                htmlFor="name"
-                className="absolute select-none -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary"
-            >
-                {field}
-            </label>
-      }
-    </>
+    <label
+        htmlFor="name"
+        className="absolute select-none -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary"
+    >
+        {field}
+    </label>
   )
 };

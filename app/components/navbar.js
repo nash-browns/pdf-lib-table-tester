@@ -7,9 +7,7 @@ import { TableCellsIcon } from '@heroicons/react/20/solid';
 const pages = [
     {name: 'Home', link: '/'},
     {name: 'Examples', link: '/examples'},
-    {name: 'Documentaion', link: '/documentation'},
-    // {name: 'About', link: '/about'},
-    {name: 'Pro', link: '/pro'},
+    {name: 'Documentation', link: '/documentation'},
 ];
  
 export function NavBar() {

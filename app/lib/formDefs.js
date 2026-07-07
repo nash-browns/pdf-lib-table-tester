@@ -1,7 +1,6 @@
 import { rgb } from 'pdf-lib';
 // import { useState } from 'react';
 // import { StandardField, MultiSelect } from "./";
-// import { getPaidSettings } from '../lib/paidFeatures'
 
 const colorOptions = [
   { id: 1, name: 'Grey', value: rgb(.56, .56, .56) },
@@ -36,21 +35,21 @@ const trueFalse = [
 ]
 
 const tableDefs = {
-  startingX: {type: 'number'},
-  startingY: {type: 'number'},
-  maxTableWidth: {type: 'number'},
+  tableStartingX: {type: 'number'},
+  tableStartingY: {type: 'number'},
+  tableMaxWidth: {type: 'number'},
   tableBorder: {type: 'string', options: trueFalse, defaultOption: 0}, 
   tableBorderThickness: {type: 'number'}, 
   tableBorderColor:  {type: 'string', options: colorOptions, defaultOption: 0},
-  alternateRowColor: {type: 'string', options: trueFalse, defaultOption: 0},
+  rowAlternateColor: {type: 'string', options: trueFalse, defaultOption: 0},
   alternateCellColor: {type: 'string', options: colorOptions, defaultOption: 0},
 
-  dividedX: {type: 'string', options: trueFalse, defaultOption: 0},
-  dividedY: {type: 'string', options: trueFalse, defaultOption: 0},
-  dividedXColor:  {type: 'string', options: colorOptions, defaultOption: 0},
-  dividedYColor:  {type: 'string', options: colorOptions, defaultOption: 0},
-  dividedXThickness: {type: 'number'},
-  dividedYThickness: {type: 'number'},
+  tableDividedX: {type: 'string', options: trueFalse, defaultOption: 0},
+  tableDividedY: {type: 'string', options: trueFalse, defaultOption: 0},
+  tableDividerXColor:  {type: 'string', options: colorOptions, defaultOption: 0},
+  tableDividerYColor:  {type: 'string', options: colorOptions, defaultOption: 0},
+  tableDividerXThickness: {type: 'number'},
+  tableDividerYThickness: {type: 'number'},
 
   continuationFont: {type: 'string', options: fontOptions, defaultOption: 0}, // Text font
   continuationTextX: {type: 'number'}, // Text starting X
@@ -59,11 +58,10 @@ const tableDefs = {
   continuationFillerHeight: {type: 'number'}, // this is the hight that will be left by the table
   continuationText: {type: 'text'},
 
-  appendedPageStartX: {type: 'number'},
-  appendedPageStartY: {type: 'number'},
-  appendedMaxTableWidth: {type: 'number'},
+  appendedTableStartingX: {type: 'number'},
+  appendedTableStartingY: {type: 'number'},
+  appendedTableMaxWidth: {type: 'number'},
 }
-
 
 const headerDefs = {
   headerHeight: {type: 'number'},
@@ -71,26 +69,25 @@ const headerDefs = {
   
   headerFont: {type: 'string', options: fontOptions, defaultOption: 0},
   headerTextSize: {type: 'number'},
-  headerLineHeight: {type: 'number'},
   headerTextAlignment: {type: 'string', options: [{ id: 1, name: 'Left', value: 'left' }, { id: 2, name: 'Center', value: 'center' }, { id: 3, name: 'Right', value: 'right' }], defaultOption: 0},
   headerTextJustification: {type: 'string', options: [{ id: 1, name: 'Top', value: 'top' }, { id: 2, name: 'Center', value: 'center' }, { id: 3, name: 'Bottom', value: 'bottom' }], defaultOption: 0},
   headerTextColor: {type: 'string', options: colorOptions, defaultOption: 0},
   
   headerDividedY: {type: 'string', options: trueFalse, defaultOption: 0},
-  headerDividedYColor: {type: 'string', options: colorOptions, defaultOption: 0},
-  headerDividedYThickness: {type: 'number'},
+  headerDividerYColor: {type: 'string', options: colorOptions, defaultOption: 0},
+  headerDividerYThickness: {type: 'number'},
 
   headerDividedX: {type: 'string', options: trueFalse, defaultOption: 0},
-  headerDividedXColor: {type: 'string', options: colorOptions, defaultOption: 0},
-  headerDividedXThickness: {type: 'number'},
+  headerDividerXColor: {type: 'string', options: colorOptions, defaultOption: 0},
+  headerDividerXThickness: {type: 'number'},
   
   //headerWrapText: {type: 'string', options: trueFalse, defaultOption: 0},
 }
 
 const rowDefs = {
   rowBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 1},
-  alternateRowColor: {type: 'string', options: trueFalse, defaultOption: 0},
-  alternateRowColorValue: {type: 'string', options: colorOptions, defaultOption: 0},
+  rowAlternateColor: {type: 'string', options: trueFalse, defaultOption: 0},
+  rowAlternateColorValue: {type: 'string', options: colorOptions, defaultOption: 2},
 }
 
 const cellDefs = {
@@ -106,7 +103,6 @@ const cellDefs = {
   // cellPaddingBottom: {type: 'number'},
 }
 
-
 const subheading = {
   subHeadingBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 2},
   subHeadingHeight: {type: 'number'},
@@ -115,23 +111,18 @@ const subheading = {
   subHeadingTextSize: {type: 'number'},
   subHeadingLineHeight: {type: 'number'},
   subHeadingDividedX: {type: 'string', options: trueFalse, defaultOption: 0},
-  subHeadingDividedXThickness: {type: 'number'},
-  subHeadingDividedXColor: {type: 'string', options: colorOptions, defaultOption: 8},
+  subHeadingDividerXThickness: {type: 'number'},
+  subHeadingDividerXColor: {type: 'string', options: colorOptions, defaultOption: 8},
   subHeadingDividedY: {type: 'string', options: trueFalse, defaultOption: 0},
-  subHeadingDividedYThickness: {type: 'number'},
-  subHeadingDividedYColor: {type: 'string', options: colorOptions, defaultOption: 8},
+  subHeadingDividerYThickness: {type: 'number'},
+  subHeadingDividerYColor: {type: 'string', options: colorOptions, defaultOption: 8},
 }
 
 export const fieldDefs = {
-  //TABLE
   ...tableDefs,
-  //Header
   ...headerDefs,
-  //Row
   ...rowDefs,
-  //CELLS
   ...cellDefs,
-  //SUBHEADING
   ...subheading
 };
   

@@ -2,8 +2,7 @@
 
 import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon, SparklesIcon} from '@heroicons/react/20/solid'
-import { getPaidFeatures } from '../lib/paidFeatures';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 
 function classNames(...classes) {
@@ -48,7 +47,9 @@ export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSetting
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-30 mt-1 max-h-60 w-full overflow-auto rounded-md bg-base-100 py-1 text-secondary shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              {/* in normal flow (not absolute) so the accordion section grows to fit
+                  the open list - .collapse has overflow:hidden and clips overlays */}
+              <Listbox.Options className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-base-100 py-1 text-secondary shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {fieldDef.options.map((option) => (
                   <Listbox.Option
                     key={option.id}
@@ -91,20 +92,7 @@ export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSetting
 
 
 function FieldName({ field }) {
-  const paidFeatures = getPaidFeatures();
-
   return (
-    <>
-      {
-        paidFeatures.includes(field) ?
-          <Listbox.Label className="absolute z-20 -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary">
-            {field}
-            <SparklesIcon className={`absolute -top-1 -right-1 text-yellow-400 w-3 h-3`}/>
-          </Listbox.Label>
-          : 
-          <Listbox.Label className="absolute z-20 -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary">{field}</Listbox.Label>
-
-      }
-    </>
+    <Listbox.Label className="absolute z-20 -top-2 left-2 inline-block bg-base-300 px-1 text-xs font-medium text-secondary">{field}</Listbox.Label>
   )
 }

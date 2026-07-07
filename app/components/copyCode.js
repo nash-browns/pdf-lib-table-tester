@@ -1,17 +1,12 @@
 'use client';
 
-import { ToggleTheme, CopyConfigButton } from "./";
+import { CopyConfigButton } from "./";
 
-export function CopyCode({ isStandard, setIsStandard, userPdfSettings }) {
+export function CopyCode({ userPdfSettings }) {
 
     return (
         <div className='flex w-full mb-2 justify-end items-center'>
-            <ToggleTheme
-                isStandard={isStandard}
-                setIsStandard={setIsStandard}
-            />
             <CopyConfigButton
-                isStandard={isStandard}
                 userPdfSettings={userPdfSettings}
             />
         </div>
