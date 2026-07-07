@@ -1,44 +1,54 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import { FormFieldsLayout, CopyCode, TableIframe, ExampleBar} from ".";
-import {  SinglePageExample, MultiPageExample, SubheadingExample } from "./pages";
+import { useState, useEffect, useMemo } from "react";
+import { FormFieldsLayout, CopyCode, TableIframe } from ".";
 
 import { Doc, SinglePage, MultiPage, Subheading } from "../function";
 
-import { pdfSettings } from '../lib/defaultTableSettings'
+const EXAMPLE_TYPES = {
+    'Single Page': SinglePage,
+    'Multi Page': MultiPage,
+    'Subheadings': Subheading,
+};
 
-const examples = [
-    {name: 'Single Page', current: true},
-    {name: 'Multi Page', current: false},
-    {name: 'Subheadings', current: false},
-    // {name: 'Invoice', current: false},
-];
-
-export function ExampleLayout({  }) {
-    const [currentExample, setCurrentExample] = useState(examples);
+export function ExampleLayout({ }) {
+    const [exampleName, setExampleName] = useState('Single Page');
     const [isStandard, setIsStandard] = useState(false);
-    const [userPdfSettings, setUserPdfSettings] = useState(pdfSettings);
+    const [userPdfSettings, setUserPdfSettings] = useState(() => new SinglePage().defaultSettings);
     const [pdfUrl, setPdfUrl] = useState();
+    const [drawError, setDrawError] = useState(null);
+
+    // one example instance per selection - keeps its (random) data stable across redraws
+    const example = useMemo(() => new EXAMPLE_TYPES[exampleName](), [exampleName]);
 
     useEffect(() => {
-        const document = new Doc();
+        //debounce: regenerating the PDF on every keystroke is wasteful and renders
+        //transient values ("66" while typing "660"). cancelled guards against a
+        //slow older draw overwriting a newer one
+        let cancelled = false;
+        const timeout = setTimeout(() => {
+            const document = new Doc(example);
+            document.draw({
+                userPdfSettings,
+                setPdfUrl: (url) => { if (!cancelled) setPdfUrl(url); },
+            })
+                .then(() => { if (!cancelled) setDrawError(null); })
+                //keep showing the last good PDF; bad settings shouldn't crash the page
+                .catch((error) => { if (!cancelled) setDrawError(error.message); });
+        }, 300);
 
-        if(currentExample[0].current) document.type = new SinglePage();
-        if(currentExample[1].current) document.type = new MultiPage();
-        if(currentExample[2].current) document.type = new Subheading();
+        return () => {
+            cancelled = true;
+            clearTimeout(timeout);
+        };
+    }, [userPdfSettings, example]);
 
-        document.draw({ userPdfSettings, setUserPdfSettings, setPdfUrl });
+    const handleExampleChange = (name) => {
+        setExampleName(name);
+        setUserPdfSettings(new EXAMPLE_TYPES[name]().defaultSettings); //reset form to the example's defaults
+    };
 
-    }, [userPdfSettings, currentExample]);
-
-    useEffect(() => { //TODO: move to server?
-
-        const document = new Doc();
-        document.type = new SinglePage();
-        document.draw({ userPdfSettings, setUserPdfSettings, setPdfUrl });
-
-    }, []);
+    const examples = Object.keys(EXAMPLE_TYPES).map((name) => ({ name, current: name === exampleName }));
 
     return (
         <div className='bg-base-100'>
@@ -53,21 +63,23 @@ export function ExampleLayout({  }) {
                         <FormFieldsLayout
                             userPdfSettings={userPdfSettings}
                             setUserPdfSettings={setUserPdfSettings}
-                            examples={currentExample}
-                            setCurrentExample={setCurrentExample}
+                            examples={examples}
+                            onExampleChange={handleExampleChange}
                         />
                     </div>
                 </div>
                 <div className='col-span-3 h-full overflow-y-hidden'>
                     <div className="w-full px-2 py-3 h-[calc(100vh-64px)]">
-                        { 
-                            !pdfUrl ? <div className="skeleton w-full h-full"></div> :
-                                currentExample[0].current ? <SinglePageExample userPdfSettings={userPdfSettings} setUserPdfSettings={setUserPdfSettings} pdfUrl={pdfUrl} setPdfUrl={setPdfUrl}/> :
-                                    currentExample[1].current ? <MultiPageExample userPdfSettings={userPdfSettings} setUserPdfSettings={setUserPdfSettings} pdfUrl={pdfUrl} setPdfUrl={setPdfUrl}/> :
-                                        currentExample[2].current ? <SubheadingExample userPdfSettings={userPdfSettings} setUserPdfSettings={setUserPdfSettings} pdfUrl={pdfUrl} setPdfUrl={setPdfUrl}/> :
-                                            <TableIframe url={pdfUrl}/>
+                        {
+                            drawError &&
+                                <div className="alert alert-warning py-1 mb-2 text-sm">
+                                    <span>These settings can&apos;t render: {drawError}</span>
+                                </div>
                         }
-                    </div> 
+                        {
+                            !pdfUrl ? <div className="skeleton w-full h-full"></div> : <TableIframe url={pdfUrl}/>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

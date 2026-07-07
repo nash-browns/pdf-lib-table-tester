@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { subheadingPageTableSettings } from '../../lib/subheadingPageSettings';
+import { subheadingDefaults } from '../../lib/exampleDefaults';
 
 export class Subheading {
     constructor() {
-  
+
     }
-  
-    tableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont }) {
-      return subheadingPageTableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont });
+
+    get defaultSettings() {
+      return subheadingDefaults();
     }
   
     get columnDefs() {
@@ -41,7 +41,8 @@ export class Subheading {
     }
       
     get data() {
-  
+      if (this._data) return this._data; //keep rows stable across redraws while settings change
+
       const dataTemplateGloves = () => ({
         serial: faker.commerce.isbn(10),
         product: 'Gloves',
@@ -88,6 +89,7 @@ export class Subheading {
 
 
   
-      return [...gloveData, ...keyboardData, ...mouseData];
+      this._data = [...gloveData, ...keyboardData, ...mouseData];
+      return this._data;
     }
 }

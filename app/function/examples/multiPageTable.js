@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { multiPageTableSettings } from '../../lib/multiPageSettings';
+import { multiPageDefaults } from '../../lib/exampleDefaults';
 
 export class MultiPage {
   constructor() {
 
   }
 
-  tableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont }) {
-    return multiPageTableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont });
+  get defaultSettings() {
+    return multiPageDefaults();
   }
 
   get columnDefs() {
@@ -314,7 +314,7 @@ const localData = [
     {
         "serial": "1-64171-245-7",
         "product": "Hat",
-        "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+        "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals a",
         "department": "Music",
         "price": "170.00"
     },

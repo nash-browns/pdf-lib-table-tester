@@ -12,8 +12,8 @@ export function StandardField({field, fieldDef, userPdfSettings, setUserPdfSetti
                 id="name"
                 className="input appearance-none input-bordered input-secondary input-sm w-full bg-base-300"
                 onChange={(e) => handleFieldChange(e.target.value, field, setUserPdfSettings, section, userPdfSettings)}
-                placeholder={userPdfSettings[section][field] === 0 ? 0 :'Auto'}
-                value={userPdfSettings[section][field] ? userPdfSettings[section][field] : 0}
+                placeholder='Auto'
+                value={userPdfSettings[section][field] ?? ''}
             />
         </>
     )

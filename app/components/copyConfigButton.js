@@ -44,9 +44,9 @@ const handleCopySettings = (userPdfSettings) => {
         maxTableWidth,
         maxTableHeight,
         rowHeightSizing,
-        tableBoarder,
-        tableBoarderThickness,
-        tableBoarderColor,
+        tableBorder,
+        tableBorderThickness,
+        tableBorderColor,
         rounded,
         //CONTINUES
         continuesOnNextPage,
@@ -123,7 +123,7 @@ const handleCopySettings = (userPdfSettings) => {
         ${cl(100,appendedPageStartX)}appendedPageStartX:${appendedPageStartX},
         ${cl(512,appendedPageStartY)}appendedPageStartY:${appendedPageStartY},
         ${cl(500,appendedMaxTableWidth)}appendedMaxTableWidth:${appendedMaxTableWidth},
-        ${cl('vertical',tableType)}tableType:${tableType},// Optional - 'vertical' - Options: vertical || horizontal || 2way TODO: horizontal || 2way not suported yet
+        ${cl('vertical',tableType)}tableType:${tableType},// Optional - 'vertical' - Options: vertical || horizontal || 2way TODO: horizontal || 2way not supported yet
         ${cl(true,dividedX)}dividedX:${dividedX},// Optional - true - sets if the table has x dividers
         ${cl(true,dividedY)}dividedY:${dividedY},// Optional - true - sets if the table has y dividers
         ${cl('rgb(0,0,0)',dividedXColor)}dividedXColor:${getColor(dividedXColor)},// Optional - rgb(0,0,0) - can pass in any pdf-lib rgb value
@@ -133,9 +133,9 @@ const handleCopySettings = (userPdfSettings) => {
         ${cl(false,maxTableWidth)}maxTableWidth:${maxTableWidth},// Optional - false - table is defaulted to page width but a max value can be passed
         ${cl(false,maxTableHeight)}maxTableHeight:${maxTableHeight},// Optional - false - table is defaulted to page height but a max value can be passed
         ${cl('auto',rowHeightSizing)}rowHeightSizing:${rowHeightSizing},// Optional - 'auto' //TODO: remove this.
-        ${cl(true,tableBoarder)}tableBoarder:${tableBoarder},// Optional - true - tables have a boader by default but it can be removed by passing false
-        ${cl(0,tableBoarderThickness)}tableBoarderThickness:${tableBoarderThickness},// Optional - 1 - sets the thickness of the table boarder
-        ${cl(0,tableBoarderColor)}tableBoarderColor:${getColor(tableBoarderColor)},// Optional - rgb(0,0,0) - can pass in any pdf-lib rgb value
+        ${cl(true,tableBorder)}tableBorder:${tableBorder},// Optional - true - tables have a border by default but it can be removed by passing false
+        ${cl(0,tableBorderThickness)}tableBorderThickness:${tableBorderThickness},// Optional - 1 - sets the thickness of the table border
+        ${cl(0,tableBorderColor)}tableBorderColor:${getColor(tableBorderColor)},// Optional - rgb(0,0,0) - can pass in any pdf-lib rgb value
         ${cl(false,rounded)}rounded:${rounded},//TODO: add or remove this option. Currently not supported
         
         //CONTINUES
@@ -148,7 +148,7 @@ const handleCopySettings = (userPdfSettings) => {
         ${cl(20,continuationFillerHeight)}continuationFillerHeight:${continuationFillerHeight},// this is the hight that will be left by the table
         ${cl('Continues on Next Page',continuationText)}continuationText:${continuationText},
         
-        //SUB HEADINGS TODO: not suported yet
+        //SUB HEADINGS TODO: not supported yet
         ${cl('rgb(.03, .03, .03)',getColor(subHeadingBackgroundColor))}subHeadingBackgroundColor:${getColor(subHeadingBackgroundColor)},//TODO: Currently not supported
         ${cl(12,subHeadingHeight)}subHeadingHeight:${subHeadingHeight},//TODO: Currently not supported
         ${cl('TimesRoman',subHeadingFont.name)}subHeadingFont:${subHeadingFont.name},//TODO: Currently not supported

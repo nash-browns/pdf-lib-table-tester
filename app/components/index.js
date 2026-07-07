@@ -9,4 +9,3 @@ export {ToggleTheme} from './toggleTheme'
 export {TableIframe} from './tableIframe'
 export {StripePayment} from './stripe'
 export { PaymentWrapper } from './payment';
-export {ExampleBar} from './exampleBar';

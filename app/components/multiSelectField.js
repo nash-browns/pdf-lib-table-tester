@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, SparklesIcon} from '@heroicons/react/20/solid'
 import { getPaidFeatures } from '../lib/paidFeatures';
@@ -11,24 +11,25 @@ function classNames(...classes) {
 }
 
 export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSettings, section}) {
-  const [selected, setSelected] = useState(fieldDef.options[fieldDef.defaultOption]);
+  //controlled: derive the selected option from the settings state so it stays
+  //correct when settings are reset (e.g. switching examples)
+  const currentValue = userPdfSettings[section][field];
+  const selected = fieldDef.options.find((option) => JSON.stringify(option.value) === JSON.stringify(currentValue))
+    ?? fieldDef.options[fieldDef.defaultOption];
 
-  const handelSelection = ({ id }) => {
-    
-    setSelected(fieldDef.options[id - 1])
-    
+  const handelSelection = (option) => {
     setUserPdfSettings((prevState) => ({
         ...prevState,
         [section]: {
-          ...prevState[section], 
-          [field]: fieldDef.options[id - 1].value
+          ...prevState[section],
+          [field]: option.value
         }
       })
     )
   }
 
   return (
-    <Listbox value={selected} onChange={(index) => handelSelection(index)}>
+    <Listbox value={selected} onChange={handelSelection}>
       {({ open }) => (
         <>
           <FieldName field={field}/>

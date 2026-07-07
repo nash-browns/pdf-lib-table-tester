@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { singlePageTableSettings } from '../../lib/singlePageSettings';
+import { singlePageDefaults } from '../../lib/exampleDefaults';
 
 export class SinglePage {
   constructor() {
 
   }
 
-  tableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont }) {
-    return singlePageTableSettings({ data, columns, page, pdfDoc, primaryFont, secondaryFont });
+  get defaultSettings() {
+    return singlePageDefaults();
   }
 
   get columnDefs() {
@@ -41,6 +41,7 @@ export class SinglePage {
   }
     
   get data() {
+    if (this._data) return this._data; //keep rows stable across redraws while settings change
 
     const dataTemplate = () => ({
       serial: faker.commerce.isbn(10),
@@ -50,10 +51,10 @@ export class SinglePage {
       price: faker.commerce.price(),
     });
 
-    let data = faker.helpers.multiple(dataTemplate, {
+    this._data = faker.helpers.multiple(dataTemplate, {
       count: 8,
     });
 
-    return data;
+    return this._data;
   }
 }

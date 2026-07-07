@@ -39,9 +39,9 @@ const tableDefs = {
   startingX: {type: 'number'},
   startingY: {type: 'number'},
   maxTableWidth: {type: 'number'},
-  tableBoarder: {type: 'string', options: trueFalse, defaultOption: 0}, 
-  tableBoarderThickness: {type: 'number'}, 
-  tableBoarderColor:  {type: 'string', options: colorOptions, defaultOption: 0},
+  tableBorder: {type: 'string', options: trueFalse, defaultOption: 0}, 
+  tableBorderThickness: {type: 'number'}, 
+  tableBorderColor:  {type: 'string', options: colorOptions, defaultOption: 0},
   alternateRowColor: {type: 'string', options: trueFalse, defaultOption: 0},
   alternateCellColor: {type: 'string', options: colorOptions, defaultOption: 0},
 
@@ -71,17 +71,18 @@ const headerDefs = {
   
   headerFont: {type: 'string', options: fontOptions, defaultOption: 0},
   headerTextSize: {type: 'number'},
+  headerLineHeight: {type: 'number'},
   headerTextAlignment: {type: 'string', options: [{ id: 1, name: 'Left', value: 'left' }, { id: 2, name: 'Center', value: 'center' }, { id: 3, name: 'Right', value: 'right' }], defaultOption: 0},
   headerTextJustification: {type: 'string', options: [{ id: 1, name: 'Top', value: 'top' }, { id: 2, name: 'Center', value: 'center' }, { id: 3, name: 'Bottom', value: 'bottom' }], defaultOption: 0},
   headerTextColor: {type: 'string', options: colorOptions, defaultOption: 0},
   
   headerDividedY: {type: 'string', options: trueFalse, defaultOption: 0},
   headerDividedYColor: {type: 'string', options: colorOptions, defaultOption: 0},
-  headerDividedXThickness: {type: 'number'},
+  headerDividedYThickness: {type: 'number'},
 
   headerDividedX: {type: 'string', options: trueFalse, defaultOption: 0},
   headerDividedXColor: {type: 'string', options: colorOptions, defaultOption: 0},
-  headerDividedYThickness: {type: 'number'},
+  headerDividedXThickness: {type: 'number'},
   
   //headerWrapText: {type: 'string', options: trueFalse, defaultOption: 0},
 }
@@ -97,6 +98,8 @@ const cellDefs = {
   cellTextSize: {type: 'number'},
   cellLineHeight: {type: 'number'},
   cellTextColor: {type: 'string', options: colorOptions, defaultOption: 8},
+  cellPaddingX: {type: 'number'},
+  cellPaddingY: {type: 'number'},
   //additionalWrapCharacters,
   //cellHeight: {type: 'number'},
   //cellBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 0},
