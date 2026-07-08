@@ -27,7 +27,7 @@ function DocNav() {
             { name: 'Cells', anchor: '#cells' },
             { name: 'Subheadings', anchor: '#subheadings' },
         ]},
-        { name: 'Not yet implemented', anchor: '#not-yet-implemented' },
+        { name: 'Roadmap', anchor: '#roadmap' },
     ];
 
     return (

@@ -35,12 +35,14 @@ const trueFalse = [
 ]
 
 const tableDefs = {
+  pageOrientation: {type: 'string', options: [{ id: 1, name: 'Landscape', value: 'landscape' }, { id: 2, name: 'Portrait', value: 'portrait' }], defaultOption: 0},
   tableStartingX: {type: 'number'},
   tableStartingY: {type: 'number'},
   tableMaxWidth: {type: 'number'},
   tableBorder: {type: 'string', options: trueFalse, defaultOption: 0}, 
   tableBorderThickness: {type: 'number'}, 
   tableBorderColor:  {type: 'string', options: colorOptions, defaultOption: 0},
+  tableBorderRadius: {type: 'number'},
   rowAlternateColor: {type: 'string', options: trueFalse, defaultOption: 0},
   alternateCellColor: {type: 'string', options: colorOptions, defaultOption: 0},
 
@@ -98,7 +100,6 @@ const cellDefs = {
   cellPaddingX: {type: 'number'},
   cellPaddingY: {type: 'number'},
   //additionalWrapCharacters,
-  //cellHeight: {type: 'number'},
   //cellBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 0},
   // cellPaddingBottom: {type: 'number'},
 }

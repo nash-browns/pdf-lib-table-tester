@@ -26,6 +26,7 @@ export function buildPdfSettings({ settings, page, fontLookup }) {
         tableBorder: Table.tableBorder,
         tableBorderThickness: num(Table.tableBorderThickness, 1),
         tableBorderColor: Table.tableBorderColor,
+        tableBorderRadius: num(Table.tableBorderRadius, 0),
         tableDividedX: Table.tableDividedX,
         tableDividedY: Table.tableDividedY,
         tableDividerXColor: Table.tableDividerXColor,

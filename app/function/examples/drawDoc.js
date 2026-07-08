@@ -32,7 +32,12 @@ export class Doc {
 
     async draw({ userPdfSettings, setPdfUrl }) {
         const pdfDoc = await PDFDocument.create();
-        const page = pdfDoc.addPage([792.0, 612.0]);
+
+        //pageOrientation is a tester-side setting (the package inherits whatever
+        //page it is given, and creates appended pages at the same size)
+        const sectioned = userPdfSettings ?? this._example.defaultSettings;
+        const portrait = sectioned.Table?.pageOrientation === 'portrait';
+        const page = pdfDoc.addPage(portrait ? [612.0, 792.0] : [792.0, 612.0]);
         const data = await this._example.data;
 
         const embeddedFonts = await Promise.all(FONT_NAMES.map((name) => pdfDoc.embedStandardFont(StandardFonts[name])));

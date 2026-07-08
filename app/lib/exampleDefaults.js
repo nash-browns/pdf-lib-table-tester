@@ -12,12 +12,14 @@ const MARGIN = PAGE_WIDTH / 12;
 const baseDefaults = () => ({
     Table: {
         tableType: 'vertical',
-        tableStartingX: MARGIN,
-        tableStartingY: 50, //measured down from the top of the page (0 = top edge)
+        pageOrientation: 'landscape', //tester-side: the page the table is drawn on
+        tableStartingX: 0,
+        tableStartingY: 0, //measured down from the top of the page (0 = top edge)
         tableMaxWidth: PAGE_WIDTH - MARGIN * 2,
         tableBorder: true,
         tableBorderThickness: 1,
         tableBorderColor: rgb(.56, .56, .56),
+        tableBorderRadius: 0,
         tableDividedX: true,
         tableDividedY: true,
         tableDividerXColor: undefined,
@@ -30,8 +32,8 @@ const baseDefaults = () => ({
         continuationFontSize: 15,
         continuationFillerHeight: 20,
         continuationText: 'Continues on Next Page',
-        appendedTableStartingX: MARGIN,
-        appendedTableStartingY: 50,
+        appendedTableStartingX: 0,
+        appendedTableStartingY: 0,
         appendedTableMaxWidth: PAGE_WIDTH - MARGIN * 2,
     },
     Header: {
@@ -86,8 +88,8 @@ export const singlePageDefaults = () => baseDefaults();
 
 export const multiPageDefaults = () => {
     const defaults = baseDefaults();
-    defaults.Table.tableStartingY = 20;
-    defaults.Table.appendedTableStartingY = 20;
+    defaults.Table.tableStartingY = 0;
+    defaults.Table.appendedTableStartingY = 0;
     defaults.Table.continuationFillerHeight = 35;
     return defaults;
 };

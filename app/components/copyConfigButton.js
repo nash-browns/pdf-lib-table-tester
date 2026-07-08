@@ -96,6 +96,7 @@ export const handleCopySettings = (userPdfSettings) => {
         opt('tableBorder', T.tableBorder, true),
         opt('tableBorderThickness', asNumber(T.tableBorderThickness), 1),
         opt('tableBorderColor', T.tableBorderColor, undefined, 'default black'),
+        opt('tableBorderRadius', asNumber(T.tableBorderRadius), 0, 'rounded table corners'),
         opt('tableDividedX', T.tableDividedX, true, 'horizontal dividers between rows'),
         opt('tableDividedY', T.tableDividedY, true, 'vertical dividers between columns'),
         opt('tableDividerXColor', T.tableDividerXColor, undefined, 'default black'),
@@ -177,7 +178,7 @@ import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { createPDFTables } from 'pdf-lib-table';
 
 const pdfDoc = await PDFDocument.create();
-const page = pdfDoc.addPage([792, 612]);
+const page = pdfDoc.addPage([${T.pageOrientation === 'portrait' ? '612, 792' : '792, 612'}]); // appended pages inherit this size
 
 ${embeds}
 
