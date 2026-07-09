@@ -4,20 +4,20 @@ import { useState } from "react";
 import { ClipboardIcon } from "@heroicons/react/20/solid"
 
 export function CopyConfigButton({ userPdfSettings }) {
-    const [coppied, setCoppied] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     return (
         <div
             onMouseLeave={
                 //allows animation to finish
                 () => setTimeout(() => {
-                    coppied && setCoppied(false)
+                    copied && setCopied(false)
                 }, "250")
             }
-            className="tooltip tooltip-left h-8" data-tip={!coppied ? 'Copy Config' : 'Coppied!!'}
+            className="tooltip tooltip-left h-8" data-tip={!copied ? 'Copy Config' : 'Copied!'}
         >
             <button
-                onClick={() => {setCoppied(!coppied); handleCopySettings(userPdfSettings)}}
+                onClick={() => {setCopied(!copied); handleCopySettings(userPdfSettings)}}
                 className='btn btn-square btn-outline btn-sm btn-primary'
             >
                 <ClipboardIcon/>

@@ -10,11 +10,11 @@ export function BuyMeACoffee() {
             href={BMC_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-full max-w-50 items-center gap-2 rounded-xl px-4 font-bold shadow-md"
+            className="inline-flex h-11 w-60 items-center gap-2 rounded-xl px-4 font-bold shadow-md"
             style={{ backgroundColor: '#5F7FFF', color: '#ffffff', fontFamily: "'Comic Neue', 'Comic Sans MS', cursive" }}
         >
             <CoffeeCup />
-            Buy me a lil ski action?
+            Buy me a lil ski action??
         </a>
     )
 }

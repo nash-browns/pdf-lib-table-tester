@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { FormFieldsLayout, CopyCode, TableIframe, BuyMeACoffee } from ".";
 
 import { Doc, SinglePage, MultiPage, Subheading } from "../function";
+import {Footer} from './';
 
 const EXAMPLE_TYPES = {
     'Single Page': SinglePage,
@@ -50,9 +51,9 @@ export function ExampleLayout({ }) {
     const examples = Object.keys(EXAMPLE_TYPES).map((name) => ({ name, current: name === exampleName }));
 
     return (
-        <div className='bg-base-100'>
-            <div className='grid grid-cols-4 h-[calc(100vh-64px-45px)] justify-center'>
-                <div className='col-span-1 h-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-primary scrollbar-track-slate-300 scrollbar-w-2 overflow-y-auto overflow-x-hidden'>
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-4 lg:h-[calc(100vh-64px)] justify-center'>
+                <div className='col-span-1 max-h-[45vh] lg:max-h-none lg:h-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-primary scrollbar-track-slate-300 scrollbar-w-2 overflow-y-auto overflow-x-hidden'>
                     <div className='sticky top-0 px-2 pt-5'>
                         <CopyCode
                             userPdfSettings={userPdfSettings}
@@ -65,9 +66,9 @@ export function ExampleLayout({ }) {
                         />
                     </div>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-1 lg:col-span-3 h-[65vh] lg:h-auto">
                     <div className='flex flex-col h-full overflow-y-hidden'>
-                        <div className="w-full pt-2 pb-0 px-2 h-[calc(100vh-64px-45px)]">
+                        <div className="w-full pt-2 pb-0 px-2 h-full">
                             {
                                 drawError &&
                                     <div className="alert alert-warning py-1 mb-2 text-sm">
@@ -78,12 +79,12 @@ export function ExampleLayout({ }) {
                                 !pdfUrl ? <div className="skeleton w-full h-full"></div> : <TableIframe url={pdfUrl}/>
                             }
                         </div>
-                        <div className="flex justify-center py-2 h-[45px]">
-                            <BuyMeACoffee />
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className='h-fit'>
+                <Footer/>
+            </div>
+        </>
     );
 };

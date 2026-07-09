@@ -41,3 +41,10 @@ body {
     -moz-appearance: textfield !important;
   }
 }
+/* wide docs tables scroll horizontally on small screens instead of overflowing */
+@media (max-width: 1023px) {
+  .prose table {
+    display: block;
+    overflow-x: auto;
+  }
+}

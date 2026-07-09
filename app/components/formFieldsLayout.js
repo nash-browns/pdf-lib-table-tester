@@ -7,7 +7,7 @@ import { fieldDefs } from '../lib/formDefs';
 export function FormFieldsLayout({ userPdfSettings, setUserPdfSettings, examples, onExampleChange }) {
   const [openSections, setopenSection] = useState(false);
 
-  const handelAccordianClick = (e, section) => {
+  const handleAccordionClick = (e, section) => {
     setopenSection((prevState) => {
       if(prevState === section) return false;
       return section;
@@ -19,7 +19,7 @@ export function FormFieldsLayout({ userPdfSettings, setUserPdfSettings, examples
             <form className="collapse collapse-arrow bg-base-300 mb-2">
                 <input 
                     type="radio"
-                    onClick={(e) => handelAccordianClick(e, 'Examples')} 
+                    onClick={(e) => handleAccordionClick(e, 'Examples')} 
                     onChange={() => ''}
                     name="my-accordion-2" 
                     className="w-full"
@@ -42,7 +42,7 @@ export function FormFieldsLayout({ userPdfSettings, setUserPdfSettings, examples
                             <input 
                                 type="radio"
                                 // ref={e => accodianRef.current[section] = {element: e, open: false} } 
-                                onClick={(e) => handelAccordianClick(e, section)} 
+                                onClick={(e) => handleAccordionClick(e, section)} 
                                 onChange={() => ''}
                                 name="my-accordion-2" 
                                 className="w-full"

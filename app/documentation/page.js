@@ -1,15 +1,19 @@
 import Documentation from '../components/markdown/documentation.mdx';
+import {Footer} from '../components';
 
 export default function Doc() {
     return (
-        <div className='absolute grid grid-cols-4 gap-6 px-4 py-8 bg-base-100 text-black h-[calc(100vh-64px)]'>
-            <div className='col-span-1'>
-                <DocNav/>
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-4 gap-6 px-4 py-8 bg-base-100 text-black'>
+                <div className='hidden lg:block col-span-1'>
+                    <DocNav/>
+                </div>
+                <div className='col-span-1 lg:col-span-3 min-w-0'>
+                    <Documentation/>
+                </div>
             </div>
-            <div className='col-span-3'>
-                <Documentation/>
-            </div>
-        </div>
+            <Footer/>
+        </>
     )
 }
 
@@ -44,8 +48,8 @@ function DocNav() {
                             </ul>
                         </details>
                     ) : (
-                        <a href={anchor}>{name}</a>
-                    )}
+                            <a href={anchor}>{name}</a>
+                        )}
                 </li>
             ))}
         </ul>

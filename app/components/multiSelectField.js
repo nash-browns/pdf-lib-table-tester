@@ -16,7 +16,7 @@ export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSetting
   const selected = fieldDef.options.find((option) => JSON.stringify(option.value) === JSON.stringify(currentValue))
     ?? fieldDef.options[fieldDef.defaultOption];
 
-  const handelSelection = (option) => {
+  const handleSelection = (option) => {
     setUserPdfSettings((prevState) => ({
         ...prevState,
         [section]: {
@@ -28,7 +28,7 @@ export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSetting
   }
 
   return (
-    <Listbox value={selected} onChange={handelSelection}>
+    <Listbox value={selected} onChange={handleSelection}>
       {({ open }) => (
         <>
           <FieldName field={field}/>

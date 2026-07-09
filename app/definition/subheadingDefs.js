@@ -7,7 +7,7 @@ export const subheadingColumnDefs = [
     wrapText: true, //optional
   },
   {
-    parentId: 'price', // this is thcolumn that the subheader will line up with
+    parentId: 'price', // this is the column that the subheader will line up with
     columnId:'total',
     header: 'Total',
     type: 'number', //text/number/currency

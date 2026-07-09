@@ -57,7 +57,7 @@ const tableDefs = {
   continuationTextX: {type: 'number'}, // Text starting X
   continuationTextY: {type: 'number'}, //Text starting Y
   continuationFontSize: {type: 'number'}, // text font size
-  continuationFillerHeight: {type: 'number'}, // this is the hight that will be left by the table
+  continuationFillerHeight: {type: 'number'}, // vertical space reserved below the table for the continuation footer
   continuationText: {type: 'text'},
 
   appendedTableStartingX: {type: 'number'},
