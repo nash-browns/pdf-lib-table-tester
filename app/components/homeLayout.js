@@ -65,12 +65,16 @@ function ProductHighlights() {
 
     return (
         <div className='flex flex-col mb-80 items-center justify-center'>
-            <div className='relative flex h-fit'>
+            <div className='relative flex h-fit w-full lg:w-fit'>
                 <ProductText
                     easyToUseRef={easyToUseRef}
                     pageBreakRef={pageBreakRef}
                     lightweightRef={lightweightRef}
                     parameterRef={parameterRef}
+                    easyToUseIsIntersecting={easyToUseIsIntersecting}
+                    pageBreakIsIntersecting={pageBreakIsIntersecting}
+                    lightweightIsIntersecting={lightweightIsIntersecting}
+                    parameterIsIntersecting={parameterIsIntersecting}
                 />
                 <ProductSquare 
                     refs={squareRef}
@@ -85,32 +89,78 @@ function ProductHighlights() {
     )
 }
 
-function ProductText({easyToUseRef, pageBreakRef, lightweightRef, parameterRef}) {
+//mobile-only visual that slides into its section as it scrolls into view -
+//on desktop (lg+) the sticky code card handles the visuals instead
+function SlideIn({ show, children }) {
     return (
-        <div className='flex flex-col bg-base-100 text-gray-500'>
-            <div ref={easyToUseRef} className='flex justify-start h-screen items-center text-gray-500'>
+        <div className={`lg:hidden w-full transform transition-all ease-out duration-700 ${show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-24'}`}>
+            {children}
+        </div>
+    )
+}
+
+function ProductText({easyToUseRef, pageBreakRef, lightweightRef, parameterRef, easyToUseIsIntersecting, pageBreakIsIntersecting, lightweightIsIntersecting, parameterIsIntersecting}) {
+    return (
+        <div className='min-w-0 flex flex-col bg-base-100 text-gray-500'>
+            <div ref={easyToUseRef} className='flex flex-col lg:flex-row gap-8 justify-center lg:justify-start h-screen items-center text-gray-500'>
                 <div className='w-full lg:w-1/2'>
                     <h1 className="text-5xl font-bold">Easy to use</h1>
                     <p className="py-6">Install the library, import the create table function, then print!</p>
                 </div>
+                <SlideIn show={easyToUseIsIntersecting}>
+                    <div className='w-full overflow-x-auto text-xs'>
+                        <EasyToUse easyToUseIsIntersecting={true}/>
+                    </div>
+                </SlideIn>
             </div>
-            <div ref={pageBreakRef} className='flex justify-start h-screen items-center text-gray-500'>
+            <div ref={pageBreakRef} className='flex flex-col lg:flex-row gap-8 justify-center lg:justify-start h-screen items-center text-gray-500'>
                 <div className='w-full lg:w-1/2'>
                     <h1 className="text-5xl font-bold">Handle Page Breaks with Ease</h1>
                     <p className="py-6">Pages can start with or without headers, and table dimensions are returned, facilitating dynamic footers to fill space.</p>
                 </div>
+                <SlideIn show={pageBreakIsIntersecting}>
+                    <div className='relative w-full aspect-[4/3] bg-gray-800 rounded-md overflow-hidden'>
+                        <Image
+                            src="/continues-on-next-page.svg"
+                            alt="A table continuing onto the next page"
+                            fill='true'
+                        />
+                    </div>
+                </SlideIn>
             </div>
-            <div ref={lightweightRef} className='flex justify-start h-screen items-center text-gray-500'>
+            <div ref={lightweightRef} className='flex flex-col lg:flex-row gap-8 justify-center lg:justify-start h-screen items-center text-gray-500'>
                 <div className='w-full lg:w-1/2'>
                     <h1 className="text-5xl font-bold">Lightweight & Performant</h1>
                     <p className="py-6">pdf-lib-table has no dependencies beyond pdf-lib and can print hundreds of pages with ease.</p>
                 </div>
+                <SlideIn show={lightweightIsIntersecting}>
+                    <div className='flex justify-center items-center bg-gray-800 rounded-md p-6'>
+                        <Image
+                            src="/to-the-stars.svg"
+                            width={600}
+                            height={600}
+                            className='w-full h-auto'
+                            alt="Illustration of a rocket"
+                        />
+                    </div>
+                </SlideIn>
             </div>
-            <div ref={parameterRef} className='flex justify-start h-screen items-center text-gray-500'>
+            <div ref={parameterRef} className='flex flex-col lg:flex-row gap-8 justify-center lg:justify-start h-screen items-center text-gray-500'>
                 <div className='w-full lg:w-1/2'>
                     <h1 className="text-5xl font-bold">Over 50 parameters</h1>
                     <p className="py-6">Easy to get going, but enough customization to grow with your project</p>
                 </div>
+                <SlideIn show={parameterIsIntersecting}>
+                    <div className='flex justify-center items-center bg-gray-800 rounded-md p-6'>
+                        <Image
+                            src="/computer-program.svg"
+                            width={600}
+                            height={600}
+                            className='w-full h-auto'
+                            alt="Illustration of configuration options"
+                        />
+                    </div>
+                </SlideIn>
             </div>
         </div>
     )
@@ -206,18 +256,18 @@ function Parameters({parameterIsIntersecting}) {
 function InstallNow() {
     return (
         <div className='flex justify-center items-center mb-48'>
-            <div className='flex flex-col justify-center items-center w-fit'>
+            <div className='flex flex-col justify-center items-center w-full max-w-[500px] px-4'>
                 <h1 className='text-primary text-6xl mb-8'>Install Now!</h1>
                 <div className='w-full pb-2'>
                     <h6 className='text-secondary'>1. Install pdf-lib-table as a Node package:</h6>
                 </div>
-                <div className="mockup-code w-full mb-4">
+                <div className="mockup-code w-full mb-4 overflow-x-auto">
                     <pre data-prefix="$"><code>npm i pdf-lib-table</code></pre>
                 </div>
                 <div className='w-full'>
                     <h6 className='text-secondary'>2. Import pdf-lib-table in your project files:</h6>
                 </div>
-                <div className="mockup-code w-full mb-4">
+                <div className="mockup-code w-full mb-4 overflow-x-auto">
                     <pre data-prefix="$"><code>{`import { createPDFTables } from 'pdf-lib-table';`}</code></pre>
                 </div>
                 <Link href='/documentation'>

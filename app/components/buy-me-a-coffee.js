@@ -1,7 +1,13 @@
+import { Comic_Neue } from 'next/font/google';
+
 //self-hosted recreation of the BuyMeACoffee button (cup artwork extracted from
 //their button API SVG). Their hosted button now hard-bakes a heart + supporter
 //count panel with no param to disable it, and their widget script breaks Next
 //hydration - so we own the markup instead.
+//the font is self-hosted via next/font: iOS ships neither Comic Neue nor
+//Comic Sans, and its generic `cursive` fallback is a script font
+const comicNeue = Comic_Neue({ weight: '700', subsets: ['latin'] });
+
 const BMC_URL = 'https://www.buymeacoffee.com/nashbrowns';
 
 export function BuyMeACoffee() {
@@ -10,8 +16,8 @@ export function BuyMeACoffee() {
             href={BMC_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-11 w-60 items-center gap-2 rounded-xl px-4 font-bold shadow-md"
-            style={{ backgroundColor: '#5F7FFF', color: '#ffffff', fontFamily: "'Comic Neue', 'Comic Sans MS', cursive" }}
+            className={`${comicNeue.className} inline-flex h-11 w-60 items-center gap-2 rounded-xl px-4 font-bold shadow-md`}
+            style={{ backgroundColor: '#5F7FFF', color: '#ffffff' }}
         >
             <CoffeeCup />
             Buy me a lil ski action??
