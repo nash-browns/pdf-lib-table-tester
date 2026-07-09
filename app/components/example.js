@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from "react";
-import { FormFieldsLayout, CopyCode, TableIframe, BuyMeACoffee } from ".";
+import { FormFieldsLayout, CopyCode, PdfPreview, BuyMeACoffee } from ".";
 
 import { Doc, SinglePage, MultiPage, Subheading } from "../function";
 import {Footer} from './';
@@ -52,7 +52,7 @@ export function ExampleLayout({ }) {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-4 lg:h-[calc(100vh-64px)] justify-center'>
+            <div className='grid grid-cols-1 lg:grid-cols-4 lg:grid-rows-1 lg:h-[calc(100vh-64px)] justify-center'>
                 <div className='col-span-1 max-h-[45vh] lg:max-h-none lg:h-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-primary scrollbar-track-slate-300 scrollbar-w-2 overflow-y-auto overflow-x-hidden'>
                     <div className='sticky top-0 px-2 pt-5'>
                         <CopyCode
@@ -66,7 +66,7 @@ export function ExampleLayout({ }) {
                         />
                     </div>
                 </div>
-                <div className="col-span-1 lg:col-span-3 h-[65vh] lg:h-auto">
+                <div className="col-span-1 lg:col-span-3 h-[65vh] lg:h-full">
                     <div className='flex flex-col h-full overflow-y-hidden'>
                         <div className="w-full pt-2 pb-0 px-2 h-full">
                             {
@@ -76,7 +76,7 @@ export function ExampleLayout({ }) {
                                     </div>
                             }
                             {
-                                !pdfUrl ? <div className="skeleton w-full h-full"></div> : <TableIframe url={pdfUrl}/>
+                                !pdfUrl ? <div className="skeleton w-full h-full"></div> : <PdfPreview url={pdfUrl}/>
                             }
                         </div>
                     </div>

@@ -5,6 +5,7 @@ export {StandardField} from './standardField';
 export {CopyCode} from './copyCode';
 export {CopyConfigButton} from './copyConfigButton';
 export {NavBar} from './navbar';
-export {TableIframe} from './tableIframe';
+export {TableIframe} from './tableIframe'
+export {PdfPreview} from './pdfPreview';
 export {BuyMeACoffee} from './buy-me-a-coffee';
 export {Footer} from './footer';

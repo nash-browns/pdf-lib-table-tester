@@ -108,7 +108,7 @@ function ProductText({easyToUseRef, pageBreakRef, lightweightRef, parameterRef, 
                     <p className="py-6">Install the library, import the create table function, then print!</p>
                 </div>
                 <SlideIn show={easyToUseIsIntersecting}>
-                    <div className='w-full overflow-x-auto text-xs'>
+                    <div className='w-full overflow-x-auto [&_.mockup-code]:text-[10px] sm:[&_.mockup-code]:text-sm'>
                         <EasyToUse easyToUseIsIntersecting={true}/>
                     </div>
                 </SlideIn>
@@ -261,13 +261,13 @@ function InstallNow() {
                 <div className='w-full pb-2'>
                     <h6 className='text-secondary'>1. Install pdf-lib-table as a Node package:</h6>
                 </div>
-                <div className="mockup-code w-full mb-4 overflow-x-auto">
+                <div className="mockup-code w-full mb-4 overflow-x-auto text-[9px] sm:text-base">
                     <pre data-prefix="$"><code>npm i pdf-lib-table</code></pre>
                 </div>
                 <div className='w-full'>
                     <h6 className='text-secondary'>2. Import pdf-lib-table in your project files:</h6>
                 </div>
-                <div className="mockup-code w-full mb-4 overflow-x-auto">
+                <div className="mockup-code w-full mb-4 overflow-x-auto text-[9px] sm:text-base">
                     <pre data-prefix="$"><code>{`import { createPDFTables } from 'pdf-lib-table';`}</code></pre>
                 </div>
                 <Link href='/documentation'>
