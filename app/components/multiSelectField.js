@@ -9,14 +9,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSettings, section}) {
+export function MultiSelect({field, fieldDef, userPdfSettings, setUserPdfSettings, section, value, onChange}) {
   //controlled: derive the selected option from the settings state so it stays
-  //correct when settings are reset (e.g. switching examples)
-  const currentValue = userPdfSettings[section][field];
+  //correct when settings are reset (e.g. switching examples).
+  //value/onChange override the default section-state binding (used for the
+  //per-column options, whose state is nested)
+  const currentValue = value !== undefined ? value : userPdfSettings[section][field];
   const selected = fieldDef.options.find((option) => JSON.stringify(option.value) === JSON.stringify(currentValue))
     ?? fieldDef.options[fieldDef.defaultOption];
 
   const handleSelection = (option) => {
+    if (onChange) return onChange(option.value);
     setUserPdfSettings((prevState) => ({
         ...prevState,
         [section]: {

@@ -57,12 +57,14 @@ export function ExampleLayout({ }) {
                     <div className='sticky top-0 px-2 pt-5'>
                         <CopyCode
                             userPdfSettings={userPdfSettings}
+                            columns={example.columnDefs}
                         />
                         <FormFieldsLayout
                             userPdfSettings={userPdfSettings}
                             setUserPdfSettings={setUserPdfSettings}
                             examples={examples}
                             onExampleChange={handleExampleChange}
+                            columns={example.columnDefs}
                         />
                     </div>
                 </div>

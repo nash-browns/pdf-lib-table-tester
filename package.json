@@ -21,7 +21,7 @@
     "@vercel/analytics": "^2.0.1",
     "next": "^14.1.0",
     "pdf-lib": "^1.17.1",
-    "pdf-lib-table": "^2.0.0",
+    "pdf-lib-table": "file:.yalc/pdf-lib-table",
     "pdfjs-dist": "^6.1.200",
     "react": "^18",
     "react-dom": "^18",

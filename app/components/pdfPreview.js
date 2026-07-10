@@ -8,6 +8,7 @@ import { ArrowDownTrayIcon } from '@heroicons/react/20/solid';
 //with pdf.js and style the viewer the same everywhere
 
 let pdfjsPromise;
+
 function getPdfjs() {
     if (!pdfjsPromise) {
         pdfjsPromise = import('pdfjs-dist').then((pdfjs) => {

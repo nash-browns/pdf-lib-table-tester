@@ -36,6 +36,22 @@ export class Doc {
         //pageOrientation is a tester-side setting (the package inherits whatever
         //page it is given, and creates appended pages at the same size)
         const sectioned = userPdfSettings ?? this._example.defaultSettings;
+
+        //per-column overrides from the Columns form section merge into the
+        //example's column definitions - each group only applies when its mode
+        //select is set to manual
+        const columnState = sectioned.Columns ?? {};
+        const columnValues = columnState.values ?? {};
+        const columnDefs = this._example.columnDefs.map((col) => {
+            const value = columnValues[col.columnId] ?? {};
+            const width = Number(value.width);
+            return {
+                ...col,
+                ...(columnState.columnWidth === 'manual' && Number.isFinite(width) && width > 0 ? { width } : {}),
+                ...(columnState.columnAlignment === 'manual' && value.align ? { align: value.align } : {}),
+                ...(columnState.wrapText === 'manual' && value.wrapText === false ? { wrapText: false } : {}),
+            };
+        });
         const portrait = sectioned.Table?.pageOrientation === 'portrait';
         const page = pdfDoc.addPage(portrait ? [612.0, 792.0] : [792.0, 612.0]);
         const data = await this._example.data;
@@ -59,7 +75,7 @@ export class Doc {
             newDataFormat,
             page,
             pdfDoc,
-            this._example.columnDefs,
+            columnDefs,
             StandardFonts,
             rgb,
             settings,

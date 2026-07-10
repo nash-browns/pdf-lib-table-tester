@@ -36,9 +36,18 @@ const baseDefaults = () => ({
         appendedTableStartingY: 0,
         appendedTableMaxWidth: PAGE_WIDTH - MARGIN * 2,
     },
+    //column option modes - 'manual' reveals a field per column of the current
+    //example; per-column values live under `values`
+    Columns: {
+        columnWidth: 'auto',
+        columnAlignment: 'auto',
+        wrapText: true,
+        values: {},
+    },
     Header: {
         headerHeight: 13,
         headerBackgroundColor: rgb(.03, .03, .03),
+        headerBackgroundOpacity: 0.25,
         headerFont: 'TimesRomanBold',
         headerTextSize: 10,
         headerTextAlignment: 'center',
@@ -54,6 +63,7 @@ const baseDefaults = () => ({
     },
     Row: {
         rowBackgroundColor: rgb(1, 1, 1),
+        rowBackgroundOpacity: 0.25,
         rowAlternateColor: true,
         rowAlternateColorValue: rgb(.21, .24, .85),
     },
@@ -69,6 +79,7 @@ const baseDefaults = () => ({
     Subheader: {
         subHeadingColumns: [],
         subHeadingBackgroundColor: rgb(0, 0, 0),
+        subHeadingBackgroundOpacity: 0.25,
         subHeadingHeight: 12,
         subHeadingFont: 'TimesRoman',
         subHeadingTextColor: rgb(0, 0, 0),

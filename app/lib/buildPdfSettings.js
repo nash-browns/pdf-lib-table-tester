@@ -46,6 +46,7 @@ export function buildPdfSettings({ settings, page, fontLookup }) {
         //HEADER
         headerHeight: num(Header.headerHeight),
         headerBackgroundColor: Header.headerBackgroundColor,
+        headerBackgroundOpacity: num(Header.headerBackgroundOpacity, 0.25),
         headerFont: font(Header.headerFont, 'TimesRomanBold'),
         headerTextSize: num(Header.headerTextSize, 10),
         headerTextAlignment: Header.headerTextAlignment || 'center',
@@ -61,6 +62,7 @@ export function buildPdfSettings({ settings, page, fontLookup }) {
 
         //ROW
         rowBackgroundColor: Row.rowBackgroundColor,
+        rowBackgroundOpacity: num(Row.rowBackgroundOpacity, 0.25),
         rowAlternateColor: Row.rowAlternateColor,
         rowAlternateColorValue: Row.rowAlternateColorValue,
 
@@ -76,6 +78,7 @@ export function buildPdfSettings({ settings, page, fontLookup }) {
         //SUBHEADING
         subHeadingColumns: Subheader.subHeadingColumns || [],
         subHeadingBackgroundColor: Subheader.subHeadingBackgroundColor,
+        subHeadingBackgroundOpacity: num(Subheader.subHeadingBackgroundOpacity, 0.25),
         subHeadingHeight: num(Subheader.subHeadingHeight, 12),
         subHeadingFont: font(Subheader.subHeadingFont, 'TimesRoman'),
         subHeadingTextColor: Subheader.subHeadingTextColor,

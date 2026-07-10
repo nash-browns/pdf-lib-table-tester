@@ -68,6 +68,7 @@ const tableDefs = {
 const headerDefs = {
   headerHeight: {type: 'number'},
   headerBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 0},
+  headerBackgroundOpacity: {type: 'number'},
   
   headerFont: {type: 'string', options: fontOptions, defaultOption: 0},
   headerTextSize: {type: 'number'},
@@ -88,6 +89,7 @@ const headerDefs = {
 
 const rowDefs = {
   rowBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 1},
+  rowBackgroundOpacity: {type: 'number'},
   rowAlternateColor: {type: 'string', options: trueFalse, defaultOption: 0},
   rowAlternateColorValue: {type: 'string', options: colorOptions, defaultOption: 2},
 }
@@ -106,6 +108,7 @@ const cellDefs = {
 
 const subheading = {
   subHeadingBackgroundColor: {type: 'string', options: colorOptions, defaultOption: 2},
+  subHeadingBackgroundOpacity: {type: 'number'},
   subHeadingHeight: {type: 'number'},
   subHeadingFont: {type: 'string', options: fontOptions, defaultOption: 8},
   subHeadingTextColor: {type: 'string', options: colorOptions, defaultOption: 8},

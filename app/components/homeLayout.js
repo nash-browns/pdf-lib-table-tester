@@ -256,7 +256,7 @@ function Parameters({parameterIsIntersecting}) {
 function InstallNow() {
     return (
         <div className='flex justify-center items-center mb-48'>
-            <div className='flex flex-col justify-center items-center w-full max-w-[500px] px-4'>
+            <div className='flex flex-col justify-center items-center w-full max-w-[575px] px-4'>
                 <h1 className='text-primary text-6xl mb-8'>Install Now!</h1>
                 <div className='w-full pb-2'>
                     <h6 className='text-secondary'>1. Install pdf-lib-table as a Node package:</h6>

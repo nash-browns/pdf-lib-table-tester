@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ClipboardIcon } from "@heroicons/react/20/solid"
 
-export function CopyConfigButton({ userPdfSettings }) {
+export function CopyConfigButton({ userPdfSettings, columns }) {
     const [copied, setCopied] = useState(false);
 
     return (
@@ -17,7 +17,7 @@ export function CopyConfigButton({ userPdfSettings }) {
             className="tooltip tooltip-left h-8" data-tip={!copied ? 'Copy Config' : 'Copied!'}
         >
             <button
-                onClick={() => {setCopied(!copied); handleCopySettings(userPdfSettings)}}
+                onClick={() => {setCopied(!copied); handleCopySettings(userPdfSettings, columns)}}
                 className='btn btn-square btn-outline btn-sm btn-primary'
             >
                 <ClipboardIcon/>
@@ -63,7 +63,7 @@ const fontVar = (name) => name ? name.charAt(0).toLowerCase() + name.slice(1) : 
 
 // ---------- clipboard payload ----------
 
-export const handleCopySettings = (userPdfSettings) => {
+export const handleCopySettings = (userPdfSettings, columns = []) => {
     const T = userPdfSettings.Table ?? {};
     const H = userPdfSettings.Header ?? {};
     const R = userPdfSettings.Row ?? {};
@@ -84,6 +84,22 @@ export const handleCopySettings = (userPdfSettings) => {
     const subHeadingColumnLines = subHeadingColumns.length
         ? `const subHeadingColumns = [\n${subHeadingColumns.map((d) => `    { columnId: '${d.columnId}', parentId: '${d.parentId}' },`).join('\n')}\n];\n\n`
         : '';
+
+    //the example's real columns, with per-column overrides applied when their
+    //mode select is set to manual
+    const columnState = userPdfSettings.Columns ?? {};
+    const columnValues = columnState.values ?? {};
+    const columnLines = columns.length
+        ? columns.map(({ columnId, header }) => {
+            const value = columnValues[columnId] ?? {};
+            const width = Number(value.width);
+            const parts = [`columnId: '${columnId}'`, `header: '${header}'`];
+            if (columnState.columnWidth === 'manual' && Number.isFinite(width) && width > 0) parts.push(`width: ${width}`);
+            if (columnState.columnAlignment === 'manual' && value.align && value.align !== 'left') parts.push(`align: '${value.align}'`);
+            if (columnState.wrapText === 'manual' && value.wrapText === false) parts.push('wrapText: false');
+            return `    { ${parts.join(', ')} },`;
+        }).join('\n')
+        : "    // { columnId: 'serial', header: 'Serial' },";
 
     const lines = [
         '    //TABLE',
@@ -116,7 +132,8 @@ export const handleCopySettings = (userPdfSettings) => {
         `    headerFont: ${fontVar(H.headerFont || 'TimesRomanBold')}, // Required`,
         opt('headerTextSize', asNumber(H.headerTextSize), 12),
         opt('headerTextColor', H.headerTextColor, undefined, 'default black'),
-        opt('headerBackgroundColor', H.headerBackgroundColor, undefined, 'drawn at 25% opacity'),
+        opt('headerBackgroundColor', H.headerBackgroundColor, undefined),
+        opt('headerBackgroundOpacity', asNumber(H.headerBackgroundOpacity), 0.25),
         opt('headerHeight', asNumber(H.headerHeight), undefined, 'minimum height; the header grows to fit wrapped text'),
         opt('headerWrapText', H.headerWrapText, true),
         opt('headerTextAlignment', H.headerTextAlignment, 'left', "'left' | 'center' | 'right'"),
@@ -129,7 +146,8 @@ export const handleCopySettings = (userPdfSettings) => {
         opt('headerDividerYThickness', asNumber(H.headerDividerYThickness), 1),
         '',
         '    //ROWS',
-        opt('rowBackgroundColor', R.rowBackgroundColor, undefined, 'drawn at 25% opacity'),
+        opt('rowBackgroundColor', R.rowBackgroundColor, undefined),
+        opt('rowBackgroundOpacity', asNumber(R.rowBackgroundOpacity), 0.25),
         opt('rowAlternateColor', R.rowAlternateColor, false, 'alternate the background of every other row'),
         opt('rowAlternateColorValue', R.rowAlternateColorValue, undefined),
         '',
@@ -153,7 +171,8 @@ export const handleCopySettings = (userPdfSettings) => {
             opt('subHeadingLineHeight', asNumber(S.subHeadingLineHeight), asNumber(S.subHeadingTextSize) ?? 10, 'defaults to subHeadingTextSize'),
             opt('subHeadingHeight', asNumber(S.subHeadingHeight), undefined, 'minimum row height; the row grows to fit wrapped text'),
             opt('subHeadingTextColor', S.subHeadingTextColor, undefined, 'defaults to cellTextColor'),
-            opt('subHeadingBackgroundColor', S.subHeadingBackgroundColor, undefined, 'drawn at 25% opacity'),
+            opt('subHeadingBackgroundColor', S.subHeadingBackgroundColor, undefined),
+            opt('subHeadingBackgroundOpacity', asNumber(S.subHeadingBackgroundOpacity), 0.25),
             opt('subHeadingWrapText', S.subHeadingWrapText, false),
             opt('subHeadingDividedX', S.subHeadingDividedX, false, 'line under subheading rows'),
             opt('subHeadingDividerXColor', S.subHeadingDividerXColor, undefined, 'default black'),
@@ -184,7 +203,7 @@ ${embeds}
 
 // columnId keys into each row's data object
 const columns = [
-    // { columnId: 'serial', header: 'Serial' },
+${columnLines}
 ];
 
 // each entry is { type: 'row' | 'subheading', data: {...} }
