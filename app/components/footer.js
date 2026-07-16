@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { BuyMeACoffee } from './';
 
 export function Footer() {
+
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
             <BuyMeACoffee />
@@ -19,7 +22,7 @@ export function Footer() {
                 </div>
             </nav> 
             <aside>
-                <p>Copyright © 2026 - All rights reserved by Nash Browns</p>
+                <p>Copyright © {currentYear} - All rights reserved by Nash Browns</p>
             </aside>
         </footer>
     )
